@@ -61,4 +61,4 @@ DEPENDENCIES
   capistrano-symfony (= 1.0.0.rc2)
 
 BUNDLED WITH
-   1.11.2
+   1.12.5

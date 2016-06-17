@@ -62,7 +62,7 @@ stof_doctrine_extensions:
             tree:             true
 
 escape_wsse_authentication:
-    authentication_provider_class: Oro\Bundle\UserBundle\Security\WsseAuthProvider
+    authentication_provider_class: HotfixBundle\Security\Core\Authentication\Provider\WsseProvider # Oro\Bundle\UserBundle\Security\WsseAuthProvider
     authentication_listener_class: Oro\Bundle\UserBundle\Security\WsseAuthListener
 
 genemu_form:

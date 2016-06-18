@@ -16,7 +16,7 @@ class WsseProvider extends WsseAuthProvider
      */
     public function setClockSkew($clockSkew)
     {
-        $this->$clockSkew = $clockSkew;
+        $this->clockSkew = $clockSkew;
     }
 
     protected function isTokenFromFuture($created)

@@ -35,7 +35,7 @@ endif
 
 setup:
 	$(CONSOLECMD) oro:install --organization-name Oro --user-name admin --user-email admin@example.com --user-firstname John --user-lastname Doe --user-password admin --sample-data n --application-url http://local.orocrm.com --force
-	$(CONSOLECMD) doctrine:database:create --if-not-exists --env test
+	$(CONSOLECMD) hotfix:doctrine:database:create --if-not-exists --env test
 	$(CONSOLECMD) oro:install --env test --organization-name Oro --user-name admin --user-email admin@example.com --user-firstname John --user-lastname Doe --user-password admin --sample-data n --application-url http://localhost --force
 	$(CONSOLECMD) doctrine:fixture:load --no-debug --append --no-interaction --env=test --fixtures ./vendor/oro/platform/src/Oro/Bundle/TestFrameworkBundle/Fixtures
 	$(CONSOLECMD) doctrine:schema:update --force --env test

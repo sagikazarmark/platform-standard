@@ -1,5 +1,6 @@
 parameters:
-    kernel.console_path: "%kernel.root_dir%/../bin/console"
+    kernel.console_dir: "%kernel.root_dir%/../bin"
+    kernel.console_path: "%kernel.console_dir%/console"
 
 services:
     # Need to override the console path
@@ -16,3 +17,11 @@ services:
         class: HotfixBundle\Cache\EntityAliasCacheWarmer
         tags:
             - { name: kernel.cache_warmer, priority: 25 }
+
+    oro_cron.job_daemon:
+        class: %oro_cron.job_daemon.class%
+        arguments:
+            - %kernel.console_dir% # Custom console dir
+            - %oro_cron.max_jobs%
+            - %oro_cron.max_runtime%
+            - %kernel.environment%

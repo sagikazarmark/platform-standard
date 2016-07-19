@@ -1,6 +1,7 @@
 parameters:
     kernel.console_dir: "%kernel.root_dir%/../bin"
     kernel.console_path: "%kernel.console_dir%/console"
+    oro_cron.job_daemon.class: HotfixBundle\Job\Daemon
 
 services:
     # Need to override the console path

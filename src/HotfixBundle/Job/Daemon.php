@@ -14,7 +14,7 @@ class Daemon extends \Oro\Bundle\CronBundle\Job\Daemon
     {
         if (!$this->pid) {
             $this->pid = $this->findProcessPid(
-                sprintf('%sconsole hotfix:jms-job-queue:run', $this->rootDir . DIRECTORY_SEPARATOR)
+                sprintf('%sconsole hotfix:jms-job-queue:run', realpath($this->rootDir).DIRECTORY_SEPARATOR)
             );
         }
 

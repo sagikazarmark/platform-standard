@@ -55,9 +55,7 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget",
             "Oro\\Bundle\\InstallerBundle\\Composer\\ScriptHandler::installAssets",
             "Oro\\Bundle\\InstallerBundle\\Composer\\ScriptHandler::setAssetsVersion"
-        ],
-        "test": "vendor/bin/phpspec run && vendor/bin/phpunit",
-        "test-ci": "vendor/bin/phpspec run -c phpspec.ci.yml run && vendor/bin/phpunit --coverage-text --coverage-clover build/coverage.clover"
+        ]
     },
     "config": {
         "component-dir": "web/bundles/components",
@@ -71,7 +69,7 @@
         "symfony-var-dir": "var",
         "symfony-web-dir": "web",
         "symfony-tests-dir": "tests",
-        "symfony-assets-install": "relative",
+        "symfony-assets-install": "hard",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
         },

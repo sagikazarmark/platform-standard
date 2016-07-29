@@ -6,31 +6,25 @@ CONSOLEOPTS=
 CONSOLECMD=$(PHPCMD) $(CONSOLE) $(CONSOLEOPTS)
 
 COMPOSER:=$(shell if which composer > /dev/null 2>&1; then which composer; fi)
-NPM:=$(shell if which npm > /dev/null 2>&1; then which npm; fi)
-BOWER:=$(shell if which bower > /dev/null 2>&1; then which bower; fi)
-
+COMPOSEROPTS=
 
 help:
-	@echo 'Makefile for a Symfony application           '
-	@echo '                                             '
-	@echo 'Usage:                                       '
-	@echo '    make clear  clear the cache              '
-	@echo '    make deps   install project dependencies '
-	@echo '    make setup  setup project for development'
-	@echo '                                             '
+	@echo 'Makefile for a Symfony application               '
+	@echo '                                                 '
+	@echo 'Usage:                                           '
+	@echo '    make clear  clear the cache                  '
+	@echo '    make deps   install project dependencies     '
+	@echo '    make setup  setup project for development    '
+	@echo '    make test   execute test suite               '
+	@echo '                set COVERAGE=true to run coverage'
+	@echo '                                                 '
 
 clear:
 	$(CONSOLECMD) cache:clear
 
 deps:
 ifdef COMPOSER
-	$(COMPOSER) install
-endif
-ifdef NPM
-	$(NPM) install
-endif
-ifdef BOWER
-	$(BOWER) install
+	$(COMPOSER) install $(COMPOSEROPTS)
 endif
 
 setup:
@@ -40,4 +34,14 @@ setup:
 	$(CONSOLECMD) doctrine:fixture:load --no-debug --append --no-interaction --env=test --fixtures ./vendor/oro/platform/src/Oro/Bundle/TestFrameworkBundle/Fixtures
 	$(CONSOLECMD) doctrine:schema:update --force --env test
 
-.PHONY: help clear deps setup
+test:
+ifeq ($(COVERAGE), true)
+	vendor/bin/phpspec run -c phpspec.ci.yml run
+	vendor/bin/phpunit --coverage-text --coverage-clover build/coverage.clover
+else
+	vendor/bin/phpspec run
+	vendor/bin/phpunit
+endif
+	vendor/bin/behat
+
+.PHONY: help clear deps setup test

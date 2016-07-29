@@ -1,0 +1,9 @@
+doctrine:
+    dbal:
+        connections:
+            default:
+                server_version: "%database_version%"
+            session:
+                server_version: "%database_version%"
+            config:
+                server_version: "%database_version%"

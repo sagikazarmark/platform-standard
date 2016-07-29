@@ -1,7 +1,7 @@
 version: '2'
 
 services:
-    app:
+    data:
         image: debian:jessie
         volumes:
             - .:/var/www
@@ -9,10 +9,8 @@ services:
 
     db:
         image: mysql:latest
-        ports:
-            - 3306
         volumes:
-            - ./var/docker/mysql:/var/lib/mysql
+            - ./var/docker/dev/mysql:/var/lib/mysql
         environment:
             MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
             MYSQL_ROOT_PASSWORD: ''
@@ -20,61 +18,55 @@ services:
             MYSQL_USER: symfony
             MYSQL_PASSWORD: symfony
 
-    php:
-        build: etc/docker/php-fpm
-        ports:
-            - 9000
+    app:
+        build: etc/docker/dev/app
         volumes_from:
-            - app
+            - data
         links:
             - db
             - blackfire
         environment:
-            HISTFILE: /var/www/var/docker/.bash_history
-            XDG_CONFIG_HOME: /var/www/var/docker/.config # Required for PsySH
-            COMPOSER_HOME: /var/www/var/docker/composer
+            HISTFILE: /var/www/var/docker/dev/.bash_history
+            XDG_CONFIG_HOME: /var/www/var/docker/dev/.config # Required for PsySH
+            COMPOSER_HOME: /var/www/var/docker/dev/composer
 
     web:
-        build: etc/docker/nginx
+        build: etc/docker/dev/web
         ports:
             - 80
         links:
-            - php:php-fpm
-        volumes_from:
             - app
+        volumes_from:
+            - data
         volumes:
-            - ./var/docker/nginx:/var/log/nginx
+            - ./var/docker/dev/nginx:/var/log/nginx
 
-    php_debug:
+    app_debug:
         build:
-            context: etc/docker/php-fpm
+            context: etc/docker/dev/app
             args:
                USE_XDEBUG: "yes"
-        ports:
-            - 9000
-            - 9090
         volumes_from:
-            - app
+            - data
         links:
             - db
             - blackfire
         environment:
-            HISTFILE: /var/www/var/docker/.bash_history
-            XDEBUG_CONFIG: idekey=PHPSTORM
-            XDG_CONFIG_HOME: /var/www/var/docker/.config # Required for PsySH
-            COMPOSER_HOME: /var/www/var/docker/composer
+            HISTFILE: /var/www/var/docker/dev/.bash_history
+            XDG_CONFIG_HOME: /var/www/var/docker/dev/.config # Required for PsySH
+            COMPOSER_HOME: /var/www/var/docker/dev/composer
         mem_limit: 2000000000
 
     web_debug:
-        build: etc/docker/nginx
+        build: etc/docker/dev/web
         ports:
             - 80
         links:
-            - php_debug:php-fpm
+            - app_debug:app
         volumes_from:
-            - app
+            - data
         volumes:
-            - ./var/docker/nginx:/var/log/nginx
+            - ./var/docker/dev/nginx:/var/log/nginx
 
     # Set your blackfire IDs and tokens as environment variables
     # on your system before building the containers.
@@ -83,8 +75,11 @@ services:
     # integration page: https://blackfire.io/docs/integrations/docker
     blackfire:
         image: blackfire/blackfire
-        env_file:
-            - ./etc/docker/env/blackfire.env
+        environment:
+            BLACKFIRE_CLIENT_ID: ${BLACKFIRE_CLIENT_ID}
+            BLACKFIRE_CLIENT_TOKEN: ${BLACKFIRE_CLIENT_TOKEN}
+            BLACKFIRE_SERVER_ID: ${BLACKFIRE_SERVER_ID}
+            BLACKFIRE_SERVER_TOKEN: ${BLACKFIRE_SERVER_TOKEN}
 
     elasticsearch:
         image: elasticsearch
@@ -102,10 +97,10 @@ services:
             - elasticsearch
 
     logstash:
-        build: etc/docker/logstash
+        build: etc/docker/dev/logstash
         command: logstash -f /etc/logstash/logstash.conf
         links:
             - elasticsearch
         volumes_from:
-            - app
+            - data
             - web

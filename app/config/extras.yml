@@ -1,3 +1,4 @@
 imports:
+    - { resource: extras/doctrine.yml }
     - { resource: extras/maintenance.yml }
     - { resource: extras/monitor.yml }

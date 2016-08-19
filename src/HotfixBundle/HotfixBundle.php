@@ -16,6 +16,7 @@ class HotfixBundle extends Bundle
     {
         parent::build($container);
 
+        $container->addCompilerPass(new ViewListenerPriorityPass());
         $container->addCompilerPass(new WssePass());
     }
 }

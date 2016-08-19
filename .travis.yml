@@ -9,7 +9,6 @@ cache:
 php:
     - 7.0
     - 7.1
-    - hhvm
 
 env:
     global:
@@ -17,8 +16,6 @@ env:
 
 matrix:
     fast_finish: true
-    allow_failures:
-        - php: 7.0
     include:
         - php: 7.0
           env: COVERAGE=true
@@ -27,7 +24,7 @@ install:
     - make COMPOSEROPTS="--prefer-dist --no-interaction" deps
 
 before_script:
-#    - php bin/console doctrine:schema:update --force
+    - make TEST=true setup
 
 script:
     - make test

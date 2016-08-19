@@ -12,6 +12,10 @@
     },
     "repositories": [
         {
+            "type": "git",
+            "url": "https://github.com/orocrm/TranslationFormBundle.git"
+        },
+        {
             "type": "composer",
             "url": "https://packagist.orocrm.com"
         }
@@ -19,7 +23,6 @@
     "require": {
         "php": "^7.0",
         "oro/platform": "1.10.0",
-        "a2lix/translation-form-bundle": "1.x-dev as dev-1.x-symfony2.8",
         "liip/monitor-bundle": "^2.3",
         "natxet/CssMin": "^3.0.4"
     },

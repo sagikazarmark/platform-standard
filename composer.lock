@@ -4,23 +4,17 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9fae4f5b44d7417ee734a111feb05c1b",
-    "content-hash": "3af4d7a0275df136d2f7bf79221f3391",
+    "hash": "b84f28ddd711e2f66a7d27a0f38a0ace",
+    "content-hash": "76bd3784451d0a001ce97231577f0854",
     "packages": [
         {
             "name": "a2lix/translation-form-bundle",
-            "version": "1.x-dev",
+            "version": "dev-1.x-symfony2.8",
             "target-dir": "A2lix/TranslationFormBundle",
             "source": {
                 "type": "git",
-                "url": "https://github.com/a2lix/TranslationFormBundle.git",
-                "reference": "5041f05883685d944e2d9b44343709b51a1d476f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/a2lix/TranslationFormBundle/zipball/5041f05883685d944e2d9b44343709b51a1d476f",
-                "reference": "5041f05883685d944e2d9b44343709b51a1d476f",
-                "shasum": ""
+                "url": "https://github.com/orocrm/TranslationFormBundle.git",
+                "reference": "1c8e92093213725f04040272d933a93efef50b55"
             },
             "require": {
                 "symfony/symfony": ">=2.3"
@@ -41,33 +35,32 @@
                     "A2lix\\TranslationFormBundle": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "authors": [
                 {
-                    "name": "David ALLIX"
-                },
-                {
                     "name": "A2lix",
                     "homepage": "http://www.a2lix.fr"
+                },
+                {
+                    "name": "David ALLIX"
                 }
             ],
             "description": "Translate your doctrine objects easily with a custom form field",
             "homepage": "https://github.com/a2lix/TranslationFormBundle",
             "keywords": [
-                "Symfony2",
                 "doctrine2",
                 "form",
                 "gedmo",
                 "i18n",
                 "internationalization",
                 "knplabs",
+                "symfony2",
                 "translatable",
                 "translation"
             ],
-            "time": "2016-08-05 18:11:57"
+            "time": "2016-06-17 15:16:41"
         },
         {
             "name": "akeneo/batch-bundle",
@@ -9410,18 +9403,9 @@
             "time": "2016-08-09 15:02:57"
         }
     ],
-    "aliases": [
-        {
-            "alias": "dev-1.x-symfony2.8",
-            "alias_normalized": "dev-1.x-symfony2.8",
-            "version": "1.9999999.9999999.9999999-dev",
-            "package": "a2lix/translation-form-bundle"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "a2lix/translation-form-bundle": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

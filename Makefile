@@ -30,11 +30,8 @@ ifdef COMPOSER
 endif
 
 setup:
-	$(CONSOLECMD) hotfix:doctrine:database:create --if-not-exists
+	$(CONSOLECMD) doctrine:database:create --if-not-exists
 	$(CONSOLECMD) oro:install --organization-name Oro --user-name admin --user-email admin@example.com --user-firstname John --user-lastname Doe --user-password admin --sample-data n --application-url http://local.orocrm.com --force
-ifeq ($(TEST), true)
-	$(CONSOLECMD) doctrine:fixture:load --no-debug --append --no-interaction --env=test --fixtures ./vendor/oro/platform/src/Oro/Bundle/TestFrameworkBundle/Fixtures
-endif
 
 test:
 	$(CONSOLECMD) lint:yaml -v --ansi app

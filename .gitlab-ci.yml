@@ -3,33 +3,6 @@ stages:
     - build
     - deploy
 
-npm:
-    stage: dep
-    image: node:6.3.1
-    script:
-        - npm install --silent
-    cache:
-        paths:
-            - node_modules/
-    artifacts:
-        paths:
-            - node_modules/
-
-bower:
-    stage: dep
-    image: node:6.3.1
-    variables:
-        BOWER_VERSION: 1.7.9
-    script:
-        - npm install -g bower@$BOWER_VERSION --silent
-        - bower install --allow-root --silent
-    cache:
-        paths:
-            - bower_components/
-    artifacts:
-        paths:
-            - bower_components/
-
 composer:
     stage: dep
     image: webplates/symfony-php:7.0
@@ -42,33 +15,18 @@ composer:
         paths:
             - vendor/
 
-frontend:
-    stage: build
-    image: node:6.3.1
-    variables:
-        GULP_VERSION: 1.2.2
-    script:
-        - npm install -g gulp-cli@$GULP_VERSION --silent
-        - gulp --env production
-    dependencies:
-        - npm
-        - bower
-    artifacts:
-        paths:
-            - app/Resources/views/favicons.html.twig
-            - web/assets
-            - web/*.png
-            - web/browserconfig.xml
-            - web/favicon.ico
-            - web/manifest.webapp
-            - web/*.json
-
 test:
     stage: build
     image: webplates/symfony-php:7.0
     variables:
         SYMFONY_DEPRECATIONS_HELPER: weak
         SYMFONY_ENV: test
+        MYSQL_DATABASE: symfony_test
+        MYSQL_ROOT_PASSWORD: ''
+        MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+        SYMFONY__DATABASE_HOST: mysql
+    services:
+        - mysql:latest
     script:
         - "curl -H \"Accept: text/plain\" https://security.sensiolabs.org/check_lock -F lock=@composer.lock"
         - composer dump-autoload
@@ -90,8 +48,6 @@ test:
         - mkdir -p ~/.ssh
         - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
         - bundle
-    dependencies:
-        - frontend
 
 deploy:dev:
     <<: *deploy_template

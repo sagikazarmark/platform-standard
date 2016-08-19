@@ -17,22 +17,21 @@ services:
         links:
             - db
         volumes:
-            - ./var/docker/prod/app/logs:/var/www/var/logs
-            - ./var/docker/prod/app/public:/var/www/var/public
-            - ./var/docker/prod/app/sessions:/var/www/var/sessions
+            - ./var/docker/prod/app/logs:/app/var/logs
+            - ./var/docker/prod/app/sessions:/app/var/sessions
+            - ./var/docker/prod/app/uploads:/app/var/uploads
+            - ./var/docker/prod/app/web:/app/web
         environment:
             SYMFONY_ENV: prod
             SYMFONY__DATABASE_HOST: db
 
     web:
-        build: etc/docker/prod/web
+        image: webplates/symfony-nginx
         ports:
             - 80
         links:
             - app
         volumes:
             - ./var/docker/prod/nginx:/var/log/nginx
-        volumes_from:
-            - app
-        environment:
-            FPM_HOST: app
+            - ./var/docker/prod/app/uploads:/app/var/uploads
+            - ./var/docker/prod/app/web:/app/web

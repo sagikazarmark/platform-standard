@@ -4,7 +4,7 @@ services:
     data:
         image: debian:jessie
         volumes:
-            - .:/var/www
+            - .:/app
         tty: true
 
     db:
@@ -26,9 +26,10 @@ services:
             - db
             - blackfire
         environment:
-            HISTFILE: /var/www/var/docker/dev/.bash_history
-            XDG_CONFIG_HOME: /var/www/var/docker/dev/.config # Required for PsySH
-            COMPOSER_HOME: /var/www/var/docker/dev/composer
+            HISTFILE: /app/var/docker/dev/.bash_history
+            XDG_CONFIG_HOME: /app/var/docker/dev/.config # Required for PsySH
+            COMPOSER_HOME: /app/var/docker/dev/composer
+        mem_limit: 2000000000
 
     web:
         build: etc/docker/dev/web
@@ -52,9 +53,9 @@ services:
             - db
             - blackfire
         environment:
-            HISTFILE: /var/www/var/docker/dev/.bash_history
-            XDG_CONFIG_HOME: /var/www/var/docker/dev/.config # Required for PsySH
-            COMPOSER_HOME: /var/www/var/docker/dev/composer
+            HISTFILE: /app/var/docker/dev/.bash_history
+            XDG_CONFIG_HOME: /app/var/docker/dev/.config # Required for PsySH
+            COMPOSER_HOME: /app/var/docker/dev/composer
         mem_limit: 2000000000
 
     web_debug:

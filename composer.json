@@ -26,7 +26,7 @@
         "sensio/generator-bundle": "^3.0",
         "theofidry/psysh-bundle": "^2.0",
         "symfony/phpunit-bridge": "^2.8 || ^3.0",
-        "phpunit/phpunit": "^4.8|^5.2",
+        "phpunit/phpunit": "^4.8 || ^5.2",
         "phpspec/phpspec": "^2.4",
         "henrikbjorn/phpspec-code-coverage": "^2.0",
         "behat/behat": "^3.1",
@@ -60,7 +60,7 @@
     "config": {
         "component-dir": "web/bundles/components",
         "platform": {
-            "php": "5.5.9"
+            "php": "7.0.9"
         }
     },
     "extra": {
@@ -69,12 +69,9 @@
         "symfony-var-dir": "var",
         "symfony-web-dir": "web",
         "symfony-tests-dir": "tests",
-        "symfony-assets-install": "hard",
+        "symfony-assets-install": "relative",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
-        },
-        "branch-alias": {
-            "dev-master": "1.10-dev"
         }
     },
     "prefer-stable": true,

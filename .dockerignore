@@ -1,15 +1,26 @@
+*
+
 # General
-.git/
-etc/
-!etc/docker/prod/
+!LICENSE
+!README.md
+
+# Docker
+!etc/docker/prod/app/entrypoint.sh
 
 # Symfony
+!app/
 app/config/parameters.yml
-var/
+app/config/config_dev.yml
+app/config/config_test.yml
+app/config/extras_test.yml
+app/config/routing_dev.yml
+!bin/
+!composer.json
+!composer.lock
+!src/
 !var/SymfonyRequirements.php
-vendor/
-web/app_dev.php
-web/config.php
+!web/app.php
+!web/robots.txt
 
 # Platform
 !var/OroRequirements.php

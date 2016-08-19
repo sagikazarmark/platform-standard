@@ -4,19 +4,18 @@ set -e
 
 export SYMFONY__INSTALLED=$(php -r "echo date('c');")
 bin/console cache:clear
-chmod -R 777 var/cache/ var/logs/ var/sessions/ web/media/ web/uploads/
-rm -rf public/*
-cp -r web/* public/
+chmod -R 777 var/cache/ var/logs/
+cp -r public/* web/
 
 case "$1" in
     "php-fpm")
         exec php-fpm ;;
     "")
         exec php-fpm ;;
-    "migrate")
-        exec bin/console doctrine:migrations:migrate ;;
-    "worker")
-        exec bin/console hotfix:jms-job-queue:run ;;
+    "console")
+        exec "bin/$@" ;;
     *)
-        exec "$@" ;;
+        echo "Unallowed command"
+        exit 1
+        ;;
 esac

@@ -7,9 +7,8 @@ cache:
         - $HOME/.composer/cache/files
 
 php:
-    - 5.5
-    - 5.6
     - 7.0
+    - 7.1
     - hhvm
 
 env:
@@ -21,7 +20,7 @@ matrix:
     allow_failures:
         - php: 7.0
     include:
-        - php: 5.5
+        - php: 7.0
           env: COVERAGE=true
 
 install:

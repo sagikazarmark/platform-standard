@@ -28,7 +28,7 @@ ifdef COMPOSER
 endif
 
 setup:
-	$(CONSOLECMD) oro:install --organization-name Oro --user-name admin --user-email admin@example.com --user-firstname John --user-lastname Doe --user-password admin --sample-data n --application-url http://local.orocrm.com --force
+	$(CONSOLECMD) oro:install --organization-name Oro --user-name admin --user-email admin@example.com --user-firstname John --user-lastname Doe --user-password admin --sample-data n --application-url http://local.platform.webplates.xyz --force
 
 test:
 	$(CONSOLECMD) lint:yaml -v --ansi app

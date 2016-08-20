@@ -7,6 +7,8 @@ composer:
     stage: dep
     image: webplates/symfony-php:7.0
     script:
+        - apt-get install -y libxml2-dev
+        - docker-php-ext-install soap
         - composer install --prefer-dist --no-autoloader --no-scripts --no-interaction --quiet
     cache:
         paths:
@@ -28,6 +30,8 @@ test:
     services:
         - mysql:latest
     script:
+        - apt-get install -y libxml2-dev
+        - docker-php-ext-install soap
         - "curl -H \"Accept: text/plain\" https://security.sensiolabs.org/check_lock -F lock=@composer.lock"
         - composer dump-autoload
         - composer run-script post-install-cmd

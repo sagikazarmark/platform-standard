@@ -28,7 +28,6 @@ ifdef COMPOSER
 endif
 
 setup:
-	$(CONSOLECMD) doctrine:database:create --if-not-exists
 	$(CONSOLECMD) oro:install --organization-name Oro --user-name admin --user-email admin@example.com --user-firstname John --user-lastname Doe --user-password admin --sample-data n --application-url http://local.orocrm.com --force
 
 test:

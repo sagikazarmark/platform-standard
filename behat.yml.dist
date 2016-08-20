@@ -1,4 +1,8 @@
 default:
+    suites:
+        app:
+            contexts:
+                - AppBundle\Features\Context\FeatureContext
     extensions:
         Behat\Symfony2Extension: ~
         Behat\MinkExtension:

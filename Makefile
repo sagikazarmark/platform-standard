@@ -9,17 +9,15 @@ COMPOSER:=$(shell if which composer > /dev/null 2>&1; then which composer; fi)
 COMPOSEROPTS=
 
 help:
-	@echo 'Makefile for a Symfony application                                      '
-	@echo '                                                                        '
-	@echo 'Usage:                                                                  '
-	@echo '    make clear     clear the cache                                      '
-	@echo '    make deps      install project dependencies                         '
-	@echo '    make setup     setup project for development                        '
-	@echo '                   set TEST=true update schema instead of migrations    '
-	@echo '                   Note: SYMFONY_ENV=test env var SHOULD BE set manually'
-	@echo '    make test      execute test suite                                   '
-	@echo '                   set COVERAGE=true to run coverage                    '
-	@echo '                                                                        '
+	@echo 'Makefile for a Symfony application                  '
+	@echo '                                                    '
+	@echo 'Usage:                                              '
+	@echo '    make clear     clear the cache                  '
+	@echo '    make deps      install project dependencies     '
+	@echo '    make setup     setup project for development    '
+	@echo '    make test      execute test suite               '
+	@echo '                   set COVERAGE=true to run coverage'
+	@echo '                                                    '
 
 clear:
 	$(CONSOLECMD) cache:clear

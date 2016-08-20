@@ -1,8 +1,8 @@
 {
-    "name": "oro/platform-standard-edition",
+    "name": "webplates/platform-standard",
     "license": "MIT",
     "type": "project",
-    "description": "The \"Oro Platform Standard Edition\" distribution",
+    "description": "ORO Platform skeleton app",
     "autoload": {
         "psr-4": { "": "src/" },
         "classmap": [ "app/AppKernel.php", "app/AppCache.php", "var/OroRequirements.php" ]
@@ -37,7 +37,8 @@
         "behat/symfony2-extension": "^2.1",
         "behat/mink": "^1.7",
         "behat/mink-extension": "^2.2",
-        "behat/mink-browserkit-driver": "^1.3"
+        "behat/mink-browserkit-driver": "^1.3",
+        "sllh/php-cs-fixer-styleci-bridge": "^2.1"
     },
     "scripts": {
         "post-install-cmd": [

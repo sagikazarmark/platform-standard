@@ -23,7 +23,7 @@ test:
     variables:
         SYMFONY_DEPRECATIONS_HELPER: weak
         SYMFONY_ENV: test
-        MYSQL_DATABASE: symfony_test
+        MYSQL_DATABASE: symfony
         MYSQL_ROOT_PASSWORD: ''
         MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
         SYMFONY__DATABASE_HOST: mysql

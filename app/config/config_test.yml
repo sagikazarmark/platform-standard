@@ -2,6 +2,7 @@ imports:
     - { resource: config_dev.yml }
     - { resource: security_test.yml }
     - { resource: oro_test.yml }
+    - { resource: parameters.test.yml, ignore_errors: true }
 
 framework:
     test: ~

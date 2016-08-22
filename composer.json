@@ -22,7 +22,7 @@
     ],
     "require": {
         "php": "^7.0",
-        "oro/platform": "1.10.0",
+        "oro/platform": "^1.10",
         "liip/monitor-bundle": "^2.3",
         "natxet/CssMin": "^3.0.4"
     },

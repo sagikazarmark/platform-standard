@@ -33,6 +33,7 @@ install:
     - make COMPOSEROPTS="--prefer-dist --no-interaction" deps
 
 before_script:
+    - bin/console doctrine:database:create --if-not-exists
     - make setup
 
 script:

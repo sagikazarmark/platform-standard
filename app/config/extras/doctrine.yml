@@ -7,3 +7,5 @@ doctrine:
                 server_version: "%database_version%"
             config:
                 server_version: "%database_version%"
+            search:
+                server_version: "%database_version%"

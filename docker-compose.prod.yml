@@ -20,10 +20,12 @@ services:
             - ./var/docker/prod/app/logs:/app/var/logs
             - ./var/docker/prod/app/sessions:/app/var/sessions
             - ./var/docker/prod/app/uploads:/app/var/uploads
+            - ./var/docker/prod/app/attachment:/app/var/attachment
             - ./var/docker/prod/app/web:/app/web
         environment:
             SYMFONY_ENV: prod
             SYMFONY__DATABASE_HOST: db
+        mem_limit: 2000000000
 
     web:
         image: webplates/symfony-nginx

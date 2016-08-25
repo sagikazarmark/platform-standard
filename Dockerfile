@@ -16,17 +16,16 @@ COPY . .
 RUN set -xe \
     && composer dump-autoload --optimize \
     && composer run-script post-install-cmd \
-    && bin/console assetic:dump \
-    && bin/console assets:install \
+    && bin/console hotfix:assets:install --skip-translations \
     && mv web/ public/ \
     && bin/console cache:clear --no-warmup \
     && rm -rf etc/ \
         var/cache/* \
         var/logs/* \
-    && mkdir -p var/sessions/ var/uploads/ \
-    && chmod -R 777 var/sessions/ var/uploads/
+    && mkdir -p var/sessions/ var/uploads/ var/attachment/ \
+    && chmod -R 777 var/sessions/ var/uploads/ var/attachment/
 
-VOLUME ["/app/web", "/app/var/sessions", "/app/var/uploads"]
+VOLUME ["/app/web", "/app/var/sessions", "/app/var/uploads" "/app/var/attachment"]
 
 COPY etc/docker/prod/app/entrypoint.sh /docker-entrypoint.sh
 

@@ -22,8 +22,9 @@ RUN set -xe \
     && rm -rf etc/ \
         var/cache/* \
         var/logs/* \
+    && touch var/logs/${SYMFONY_ENV}.log \
     && mkdir -p var/sessions/ var/uploads/ var/attachment/ \
-    && chmod -R 777 var/sessions/ var/uploads/ var/attachment/
+    && chown -R www-data. var/cache/ var/logs/ var/sessions/ var/uploads/ var/attachment/
 
 VOLUME ["/app/web", "/app/var/sessions", "/app/var/uploads" "/app/var/attachment"]
 

@@ -4,12 +4,12 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a29e057661dd0c4c594a71253629f2bf",
+    "hash": "3989ec8cf26918e7787e9bc398921ec8",
     "content-hash": "3ae2d364ca203d6b798eb4313657bb4e",
     "packages": [
         {
             "name": "a2lix/translation-form-bundle",
-            "version": "dev-1.x-symfony2.8",
+            "version": "1.x-dev",
             "target-dir": "A2lix/TranslationFormBundle",
             "source": {
                 "type": "git",
@@ -4436,20 +4436,20 @@
         },
         {
             "name": "oro/platform",
-            "version": "1.10.0",
+            "version": "1.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orocrm/platform.git",
-                "reference": "9adcb130dacd9037a4efa3a3e41fb85cf852fee5"
+                "reference": "cc1f221b59cf279333efa998c3080a60700cda54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orocrm/platform/zipball/9adcb130dacd9037a4efa3a3e41fb85cf852fee5",
-                "reference": "9adcb130dacd9037a4efa3a3e41fb85cf852fee5",
+                "url": "https://api.github.com/repos/orocrm/platform/zipball/cc1f221b59cf279333efa998c3080a60700cda54",
+                "reference": "cc1f221b59cf279333efa998c3080a60700cda54",
                 "shasum": ""
             },
             "require": {
-                "a2lix/translation-form-bundle": "dev-1.x-symfony2.8",
+                "a2lix/translation-form-bundle": "1.x-dev",
                 "akeneo/batch-bundle": "0.4.2",
                 "ass/xmlsecurity": "1.0.0",
                 "besimple/soap": "0.2.2",
@@ -4518,8 +4518,9 @@
                 "behat/mink-selenium2-driver": "1.*",
                 "behat/symfony2-extension": "2.1.1",
                 "bossa/phpspec2-expect": "~1.0",
-                "nelmio/alice": "^2.1",
-                "sensio/generator-bundle": "2.5.3"
+                "phpunit/phpunit": "4.8.*",
+                "sensio/generator-bundle": "2.5.3",
+                "squizlabs/php_codesniffer": "2.3.*"
             },
             "type": "library",
             "extra": {
@@ -4545,7 +4546,7 @@
             ],
             "description": "Business Application Platform (BAP)",
             "homepage": "https://github.com/orocrm/platform.git",
-            "time": "2016-08-15 18:16:34"
+            "time": "2016-08-23 07:11:52"
         },
         {
             "name": "paragonie/random_compat",

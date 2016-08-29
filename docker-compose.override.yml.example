@@ -1,0 +1,29 @@
+version: '2'
+
+services:
+    app:
+        logging: &app_logging
+            driver: gelf
+            options:
+                gelf-address: udp://$LOGSTASH_ADDRESS:12201
+                gelf-tag: symfony
+
+    app_debug:
+        logging: *app_logging
+
+    web:
+        logging: &web_logging
+            driver: gelf
+            options:
+                gelf-address: udp://$LOGSTASH_ADDRESS:12201
+                gelf-tag: nginx
+
+    web_debug:
+        logging: *web_logging
+
+    blackfire:
+        environment:
+            BLACKFIRE_CLIENT_ID:
+            BLACKFIRE_CLIENT_TOKEN:
+            BLACKFIRE_SERVER_ID:
+            BLACKFIRE_SERVER_TOKEN:

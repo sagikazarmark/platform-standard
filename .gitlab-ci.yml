@@ -1,9 +1,33 @@
 stages:
     - dep
+    - test
     - build
     - deploy
 
+.template:runner: &runner
+
+.template:docker: &docker
+    <<: *runner
+    image: docker
+    before_script:
+        - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    dependencies: []
+
+.template:deploy: &deploy
+    <<: *runner
+    stage: deploy
+    image: ruby:2.3
+    before_script:
+        - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+        - eval $(ssh-agent -s)
+        - mkdir -p ~/.ssh
+        - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+        - bundle
+    dependencies:
+        - frontend
+
 composer:
+    <<: *runner
     stage: dep
     image: webplates/symfony-php:7.0
     script:
@@ -18,7 +42,8 @@ composer:
             - vendor/
 
 test:
-    stage: build
+    <<: *runner
+    stage: test
     image: webplates/symfony-php:7.0
     variables:
         SYMFONY_DEPRECATIONS_HELPER: weak
@@ -39,22 +64,25 @@ test:
         - make test
     dependencies:
         - composer
-    cache:
-        paths:
-            - var/cache/test/test.db
 
-.deploy:template: &deploy_template
+container:
+    <<: *docker
+    stage: build
+    script:
+        - docker build --pull -t $CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME .
+        - docker push $CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME
+
+docker:
+    <<: *docker
     stage: deploy
-    image: ruby:2.3
-    before_script:
-        - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-        - eval $(ssh-agent -s)
-        - mkdir -p ~/.ssh
-        - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-        - bundle
+    script:
+        - docker tag $CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME $CI_REGISTRY_IMAGE:latest
+        - docker push $CI_REGISTRY_IMAGE:latest
+    only:
+        - master
 
-deploy:dev:
-    <<: *deploy_template
+dev:
+    <<: *deploy
     variables:
         BRANCH: "$CI_BUILD_REF_NAME"
     environment: dev
@@ -64,8 +92,8 @@ deploy:dev:
     only:
         - master
 
-deploy:staging:
-    <<: *deploy_template
+staging:
+    <<: *deploy
     variables:
         BRANCH: "$CI_BUILD_TAG"
     environment: staging
@@ -77,8 +105,8 @@ deploy:staging:
     except:
         - branches
 
-deploy:live:
-    <<: *deploy_template
+production:
+    <<: *deploy
     environment: production
     variables:
         BRANCH: "$CI_BUILD_TAG"

@@ -8,15 +8,11 @@ services:
         tty: true
 
     db:
-        image: mysql:latest
+        extends:
+            file: etc/docker/common/db/docker-compose.yml
+            service: db
         volumes:
             - ./var/docker/dev/mysql:/var/lib/mysql
-        environment:
-            MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-            MYSQL_ROOT_PASSWORD: ''
-            MYSQL_DATABASE: symfony
-            MYSQL_USER: symfony
-            MYSQL_PASSWORD: symfony
 
     app:
         build: etc/docker/dev/app
@@ -39,8 +35,6 @@ services:
             - app
         volumes_from:
             - data
-        volumes:
-            - ./var/docker/dev/nginx:/var/log/nginx
 
     app_debug:
         build:
@@ -66,42 +60,11 @@ services:
             - app_debug:app
         volumes_from:
             - data
-        volumes:
-            - ./var/docker/dev/nginx:/var/log/nginx
 
     # Set your blackfire IDs and tokens as environment variables
-    # on your system before building the containers.
+    # in docker-compose.override.yml before building the containers.
     # You can find your IDs and tokens in your account profile
     # https://blackfire.io/account or on the blackfire docker
     # integration page: https://blackfire.io/docs/integrations/docker
     blackfire:
         image: blackfire/blackfire
-        environment:
-            BLACKFIRE_CLIENT_ID: ${BLACKFIRE_CLIENT_ID}
-            BLACKFIRE_CLIENT_TOKEN: ${BLACKFIRE_CLIENT_TOKEN}
-            BLACKFIRE_SERVER_ID: ${BLACKFIRE_SERVER_ID}
-            BLACKFIRE_SERVER_TOKEN: ${BLACKFIRE_SERVER_TOKEN}
-
-    elasticsearch:
-        image: elasticsearch
-        command: elasticsearch -Des.network.host=0.0.0.0
-        expose:
-            - 9200
-
-    kibana:
-        image: kibana
-        ports:
-            - 5601
-        environment:
-            - ELASTICSEARCH_URL=http://elasticsearch:9200
-        links:
-            - elasticsearch
-
-    logstash:
-        build: etc/docker/dev/logstash
-        command: logstash -f /etc/logstash/logstash.conf
-        links:
-            - elasticsearch
-        volumes_from:
-            - data
-            - web

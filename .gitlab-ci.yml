@@ -55,6 +55,7 @@ test:
     script:
         - apt-get install -y libxml2-dev
         - docker-php-ext-install soap
+        - echo -e "[PHP]\n\ndate.timezone = UTC\nmemory_limit = 1G" > /usr/local/etc/php/php.ini
         - "curl -H \"Accept: text/plain\" https://security.sensiolabs.org/check_lock -F lock=@composer.lock"
         - composer dump-autoload
         - composer run-script post-install-cmd

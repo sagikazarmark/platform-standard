@@ -20,7 +20,8 @@ set :linked_files, [fetch(:app_config_path) + "/parameters.yml"]
 set :linked_dirs, [
     fetch(:log_path),
     fetch(:session_path),
-    fetch(:web_path) + "/uploads"
+    fetch(:web_path) + "/uploads",
+    fetch(:var_path) + "/attachments"
 ]
 set :copy_files, [
     "vendor/"
@@ -30,8 +31,6 @@ set :copy_files, [
 # Deploy hooks
 namespace :deploy do
     after :starting, "composer:install_executable"
-    after :updated, "deploy:assets:upload"
-    after :updated, "symfony:assets:install"
 end
 
 

@@ -63,6 +63,16 @@ class AppKernel extends OroKernel
         });
     }
 
+    protected function getKernelParameters()
+    {
+        return array_merge(
+            parent::getKernelParameters(),
+            [
+                'kernel.var_dir' => dirname(__DIR__).'/var'
+            ]
+        );
+    }
+
     public function boot()
     {
         Kernel::boot();

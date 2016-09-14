@@ -21,8 +21,6 @@ services:
         links:
             - db
             - blackfire
-        environment:
-            COMPOSER_HOME: /app/var/docker/dev/composer
         mem_limit: 2000000000
 
     web: &web

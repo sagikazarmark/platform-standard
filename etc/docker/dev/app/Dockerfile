@@ -15,7 +15,7 @@ RUN set -xe \
     && apt-get install -y libxml2-dev \
     && docker-php-ext-install -j$(nproc) soap
 
-COPY php.ini /usr/local/etc/php/php.ini
+COPY php.ini /usr/local/etc/php/conf.d/custom.ini
 COPY entrypoint.sh /docker-entrypoint.sh
 
 ENTRYPOINT ["/docker-entrypoint.sh"]

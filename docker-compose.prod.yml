@@ -10,15 +10,15 @@ services:
 
     app:
         build: .
+        environment:
+            SYMFONY_ENV: prod
+            SYMFONY__DATABASE_HOST: db
         links:
             - db
         volumes:
             - ./var/docker/prod/app/uploads:/app/var/uploads
             - ./var/docker/prod/app/attachments:/app/var/attachments
             - ./var/docker/prod/app/web:/app/web
-        environment:
-            SYMFONY_ENV: prod
-            SYMFONY__DATABASE_HOST: db
         mem_limit: 2000000000
 
     web:
